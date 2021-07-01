@@ -2,7 +2,13 @@ import Big from "big.js";
 
 export default function operate(numberOne, numberTwo, operation) {
   const one = Big(numberOne || "0");
-  const two = Big(numberTwo || (operation === "÷" || operation === 'x' ? "1": "0")); //If dividing or multiplying, then 1 maintains current value in cases of null
+  const two = Big(
+    numberTwo ||
+      (operation === "÷" || operation === "x^y" || operation === "x"
+        ? "1"
+        : "0"),
+  ); //If dividing or multiplying, then 1 maintains current value in cases of null
+
   if (operation === "+") {
     return one.plus(two).toString();
   }
@@ -11,6 +17,16 @@ export default function operate(numberOne, numberTwo, operation) {
   }
   if (operation === "x") {
     return one.times(two).toString();
+  }
+  if (operation === "x^y") {
+    const intNumberTwo = Number(numberTwo);
+
+    if (isNaN(intNumberTwo) || intNumberTwo === null) {
+      alert(`Can not get ${numberOne}^${numberTwo}`);
+      return "0";
+    }
+
+    return one.pow(intNumberTwo).toString();
   }
   if (operation === "÷") {
     if (two === "0") {
