@@ -1,5 +1,5 @@
 .component-display {
-  background-color: #858694;
+  background-color: var(--colors-button-panel);
   color: white;
   text-align: right;
   font-weight: 200;
